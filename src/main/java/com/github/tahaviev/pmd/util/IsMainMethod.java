@@ -28,6 +28,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTFormalParameter;
 import net.sourceforge.pmd.lang.java.ast.ASTFormalParameters;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTType;
+import net.sourceforge.pmd.lang.java.ast.AbstractJavaAccessNode;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -39,11 +40,12 @@ public final class IsMainMethod implements Lazy<Boolean> {
 
     @Override
     public Boolean get() {
-        return this.declaration.isStatic()
-                && this.declaration.isPublic()
-                && this.declaration.isVoid()
-                && Optional
-                .of(this.declaration.getMethodDeclarator())
+        return Optional
+                .of(this.declaration)
+                .filter(AbstractJavaAccessNode::isStatic)
+                .filter(ASTMethodDeclaration::isPublic)
+                .filter(ASTMethodDeclaration::isVoid)
+                .map(ASTMethodDeclaration::getMethodDeclarator)
                 .filter(it -> it.hasImageEqualTo("main"))
                 .map(it -> it.getFirstChildOfType(ASTFormalParameters.class))
                 .filter(it -> it.getParameterCount() == 1)
