@@ -30,7 +30,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class NoStaticMethodsRuleTest extends RuleTstFixed {
+public final class NoStaticMethodsRuleTest extends RuleTstFixed {
 
     @Test
     public void findsPublic() {
