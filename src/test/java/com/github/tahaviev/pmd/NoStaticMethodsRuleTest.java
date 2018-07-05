@@ -28,7 +28,7 @@ import net.sourceforge.pmd.testframework.TestDescriptor;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 public final class NoStaticMethodsRuleTest extends RuleTstFixed {
 
@@ -106,7 +106,7 @@ public final class NoStaticMethodsRuleTest extends RuleTstFixed {
 
     @Test
     public void findsMethodsSimilarToMain() {
-        final List<String> calls = Arrays.asList(
+        final Collection<String> calls = Arrays.asList(
                 "private static void main(String[] args){}",
                 "public static void main(){}",
                 "public static void Main(String[] args){}",
