@@ -30,6 +30,18 @@ import org.junit.Test;
 public final class OnlyFinalMethodsRuleTest extends RuleTstFixed {
 
     @Test
+    public void findsDefault() {
+        this.runTest(
+                new TestDescriptor(
+                        "interface I{default void m(){}}",
+                        "can not find default method",
+                        1,
+                        new OnlyFinalMethodsRule()
+                )
+        );
+    }
+
+    @Test
     public void findsNonFinal() {
         this.runTest(
                 new TestDescriptor(
@@ -42,12 +54,24 @@ public final class OnlyFinalMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void findsDefault() {
+    public void ignoresAnonymousClass() {
         this.runTest(
                 new TestDescriptor(
-                        "interface I{default void m(){}}",
-                        "can not find default method",
-                        1,
+                        "class C{final void m(){new AC(){void m(){}};}}",
+                        "can not ignore anonymous class",
+                        0,
+                        new OnlyFinalMethodsRule()
+                )
+        );
+    }
+
+    @Test
+    public void ignoresEnum() {
+        this.runTest(
+                new TestDescriptor(
+                        "enum E{E1;void m(){}abstract void am(){}}",
+                        "can not ignore enum method",
+                        0,
                         new OnlyFinalMethodsRule()
                 )
         );
@@ -78,11 +102,11 @@ public final class OnlyFinalMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void ignoresStatic() {
+    public void ignoresInterface() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{static void m(){}}",
-                        "can not ignore static method",
+                        "interface I{void m(){}}",
+                        "can not ignore interface method",
                         0,
                         new OnlyFinalMethodsRule()
                 )
@@ -102,35 +126,11 @@ public final class OnlyFinalMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void ignoresInterface() {
+    public void ignoresStatic() {
         this.runTest(
                 new TestDescriptor(
-                        "interface I{void m(){}}",
-                        "can not ignore interface method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
-        );
-    }
-
-    @Test
-    public void ignoresEnum() {
-        this.runTest(
-                new TestDescriptor(
-                        "enum E{E1;void m(){}abstract void am(){}}",
-                        "can not ignore enum method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
-        );
-    }
-
-    @Test
-    public void ignoresAnonymousClass() {
-        this.runTest(
-                new TestDescriptor(
-                        "class C{final void m(){new AC(){void m(){}};}}",
-                        "can not ignore anonymous class",
+                        "class C{static void m(){}}",
+                        "can not ignore static method",
                         0,
                         new OnlyFinalMethodsRule()
                 )

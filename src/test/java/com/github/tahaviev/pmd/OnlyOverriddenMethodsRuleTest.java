@@ -30,18 +30,6 @@ import org.junit.Test;
 public final class OnlyOverriddenMethodsRuleTest extends RuleTstFixed {
 
     @Test
-    public void findsNonOverriddenPublic() {
-        this.runTest(
-                new TestDescriptor(
-                        "class C{public void m(){}}",
-                        "can not find non overridden public method",
-                        1,
-                        new OnlyOverriddenMethodsRule()
-                )
-        );
-    }
-
-    @Test
     public void findsNonOverriddenProtected() {
         this.runTest(
                 new TestDescriptor(
@@ -54,35 +42,23 @@ public final class OnlyOverriddenMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void ignoresOverridden() {
+    public void findsNonOverriddenPublic() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{@Override public void m(){}}",
-                        "can not ignore overridden public method",
-                        0,
+                        "class C{public void m(){}}",
+                        "can not find non overridden public method",
+                        1,
                         new OnlyOverriddenMethodsRule()
                 )
         );
     }
 
     @Test
-    public void ignoresStatic() {
+    public void ignoresAbstract() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{public static void m(){}}",
-                        "can not ignore static method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
-        );
-    }
-
-    @Test
-    public void ignoresPrivate() {
-        this.runTest(
-                new TestDescriptor(
-                        "class C{private void m(){}}",
-                        "can not ignore private method",
+                        "class C{public abstract void m(){}}",
+                        "can not ignore abstract method",
                         0,
                         new OnlyOverriddenMethodsRule()
                 )
@@ -102,11 +78,35 @@ public final class OnlyOverriddenMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void ignoresAbstract() {
+    public void ignoresOverridden() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{public abstract void m(){}}",
-                        "can not ignore abstract method",
+                        "class C{@Override public void m(){}}",
+                        "can not ignore overridden public method",
+                        0,
+                        new OnlyOverriddenMethodsRule()
+                )
+        );
+    }
+
+    @Test
+    public void ignoresPrivate() {
+        this.runTest(
+                new TestDescriptor(
+                        "class C{private void m(){}}",
+                        "can not ignore private method",
+                        0,
+                        new OnlyOverriddenMethodsRule()
+                )
+        );
+    }
+
+    @Test
+    public void ignoresStatic() {
+        this.runTest(
+                new TestDescriptor(
+                        "class C{public static void m(){}}",
+                        "can not ignore static method",
                         0,
                         new OnlyOverriddenMethodsRule()
                 )

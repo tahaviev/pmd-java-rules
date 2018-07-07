@@ -33,11 +33,11 @@ import java.util.Collection;
 public final class NoStaticMethodsRuleTest extends RuleTstFixed {
 
     @Test
-    public void findsPublic() {
+    public void findsInInterface() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{public static R m(){}}",
-                        "can not find public static method",
+                        "interface I{static R m(){}}",
+                        "can not find static method in interface",
                         1,
                         new NoStaticMethodsRule()
                 )
@@ -69,11 +69,11 @@ public final class NoStaticMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void findsInInterface() {
+    public void findsPublic() {
         this.runTest(
                 new TestDescriptor(
-                        "interface I{static R m(){}}",
-                        "can not find static method in interface",
+                        "class C{public static R m(){}}",
+                        "can not find public static method",
                         1,
                         new NoStaticMethodsRule()
                 )
@@ -81,31 +81,7 @@ public final class NoStaticMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void ignoresMainMethod() {
-        this.runTest(
-                new TestDescriptor(
-                        "class C{public static void main(String[] args){}}",
-                        "can not ignore main method",
-                        0,
-                        new NoStaticMethodsRule()
-                )
-        );
-    }
-
-    @Test
-    public void ignoresVarargMainMethod() {
-        this.runTest(
-                new TestDescriptor(
-                        "class C{public static void main(String... args){}}",
-                        "can not ignore vararg main method",
-                        0,
-                        new NoStaticMethodsRule()
-                )
-        );
-    }
-
-    @Test
-    public void findsMethodsSimilarToMain() {
+    public void findsSimilarToMain() {
         final Collection<String> calls = Arrays.asList(
                 "private static void main(String[] args){}",
                 "public static void main(){}",
@@ -125,11 +101,35 @@ public final class NoStaticMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
+    public void ignoresMain() {
+        this.runTest(
+                new TestDescriptor(
+                        "class C{public static void main(String[] args){}}",
+                        "can not ignore main method",
+                        0,
+                        new NoStaticMethodsRule()
+                )
+        );
+    }
+
+    @Test
     public void ignoresNonStaticMethod() {
         this.runTest(
                 new TestDescriptor(
                         "class C{void m(){}}",
                         "can not ignore non static method",
+                        0,
+                        new NoStaticMethodsRule()
+                )
+        );
+    }
+
+    @Test
+    public void ignoresVarargMain() {
+        this.runTest(
+                new TestDescriptor(
+                        "class C{public static void main(String... args){}}",
+                        "can not ignore vararg main method",
                         0,
                         new NoStaticMethodsRule()
                 )
