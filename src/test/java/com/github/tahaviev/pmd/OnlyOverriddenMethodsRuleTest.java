@@ -90,6 +90,18 @@ public final class OnlyOverriddenMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
+    public void ignoresInterface() {
+        this.runTest(
+                new TestDescriptor(
+                        "interface I{void m();}",
+                        "can not ignore interface method",
+                        0,
+                        new OnlyOverriddenMethodsRule()
+                )
+        );
+    }
+
+    @Test
     public void ignoresAbstract() {
         this.runTest(
                 new TestDescriptor(

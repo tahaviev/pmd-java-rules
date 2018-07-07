@@ -88,4 +88,16 @@ public final class NoStaticFieldsRuleTest extends RuleTstFixed {
                 )
         );
     }
+
+    @Test
+    public void ignoresNonStatic() {
+        this.runTest(
+                new TestDescriptor(
+                        "class C{F f;}",
+                        "can not ignore non static field",
+                        0,
+                        new NoStaticFieldsRule()
+                )
+        );
+    }
 }

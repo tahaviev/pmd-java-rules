@@ -123,4 +123,16 @@ public final class NoStaticMethodsRuleTest extends RuleTstFixed {
                 )
         );
     }
+
+    @Test
+    public void ignoresNonStaticMethod() {
+        this.runTest(
+                new TestDescriptor(
+                        "class C{void m(){}}",
+                        "can not ignore non static method",
+                        0,
+                        new NoStaticMethodsRule()
+                )
+        );
+    }
 }
