@@ -50,7 +50,7 @@ public final class IsMainMethod implements Lazy<Boolean> {
                 .map(it -> it.getFirstChildOfType(ASTFormalParameters.class))
                 .filter(it -> it.getParameterCount() == 1)
                 .map(parameters -> parameters.iterator().next())
-                .filter(it -> it.isArray() || it.isVarargs())
+                .filter(ASTFormalParameter::isArray)
                 .map(ASTFormalParameter::getTypeNode)
                 .map(ASTType::getTypeImage)
                 .filter(it -> Objects.equals(it, String.class.getSimpleName()))

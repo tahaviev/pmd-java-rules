@@ -30,11 +30,11 @@ import org.junit.Test;
 public final class OnlyPublicMethodsRuleTest extends RuleTstFixed {
 
     @Test
-    public void findsPrivate() {
+    public void findsPackagePrivate() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{private void m(){}}",
-                        "can not find private method",
+                        "class C{void m(){}}",
+                        "can not find package private method",
                         1,
                         new OnlyPublicMethodsRule()
                 )
@@ -42,11 +42,11 @@ public final class OnlyPublicMethodsRuleTest extends RuleTstFixed {
     }
 
     @Test
-    public void findsPackagePrivate() {
+    public void findsPrivate() {
         this.runTest(
                 new TestDescriptor(
-                        "class C{void m(){}}",
-                        "can not find package private method",
+                        "class C{private void m(){}}",
+                        "can not find private method",
                         1,
                         new OnlyPublicMethodsRule()
                 )
