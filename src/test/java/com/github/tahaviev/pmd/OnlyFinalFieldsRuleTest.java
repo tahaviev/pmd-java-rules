@@ -27,7 +27,7 @@ import com.github.tahaviev.pmd.util.RuleTstFixed;
 import net.sourceforge.pmd.testframework.TestDescriptor;
 import org.junit.Test;
 
-public final class OnlyFinalFieldsTest extends RuleTstFixed {
+public final class OnlyFinalFieldsRuleTest extends RuleTstFixed {
 
     @Test
     public void findsNonFinal() {
@@ -36,7 +36,7 @@ public final class OnlyFinalFieldsTest extends RuleTstFixed {
                         "class C{F f;}",
                         "can not find non final field",
                         1,
-                        new OnlyFinalFields()
+                        new OnlyFinalFieldsRule()
                 )
         );
     }
@@ -48,7 +48,7 @@ public final class OnlyFinalFieldsTest extends RuleTstFixed {
                         "class C{final F f;}",
                         "can not ignore final field",
                         0,
-                        new OnlyFinalFields()
+                        new OnlyFinalFieldsRule()
                 )
         );
     }
