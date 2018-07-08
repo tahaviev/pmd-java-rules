@@ -26,6 +26,9 @@ package com.github.tahaviev.pmd;
 import net.sourceforge.pmd.lang.java.ast.ASTFieldDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
+/**
+ * No static fields rule.
+ */
 public final class NoStaticFieldsRule extends AbstractJavaRule {
 
     @Override

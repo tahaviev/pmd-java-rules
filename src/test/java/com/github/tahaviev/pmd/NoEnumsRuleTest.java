@@ -27,29 +27,38 @@ import com.github.tahaviev.pmd.util.RuleTstFixed;
 import net.sourceforge.pmd.testframework.TestDescriptor;
 import org.junit.Test;
 
+/**
+ * {@link NoEnumsRule} test.
+ */
 public final class NoEnumsRuleTest extends RuleTstFixed {
 
+    /**
+     * Can find enum.
+     */
     @Test
     public void findsEnum() {
         this.runTest(
-                new TestDescriptor(
-                        "enum E{}",
-                        "can not find enum",
-                        1,
-                        new NoEnumsRule()
-                )
+            new TestDescriptor(
+                "enum E{}",
+                "can not find enum",
+                1,
+                new NoEnumsRule()
+            )
         );
     }
 
+    /**
+     * Can find inner enums.
+     */
     @Test
     public void findsInnerEnums() {
         this.runTest(
-                new TestDescriptor(
-                        "interface I{enum E1{} class C {enum E2{}}}",
-                        "can not find inner enums",
-                        2,
-                        new NoEnumsRule()
-                )
+            new TestDescriptor(
+                "interface I{enum E1{} class C {enum E2{}}}",
+                "can not find inner enums",
+                2,
+                new NoEnumsRule()
+            )
         );
     }
 }

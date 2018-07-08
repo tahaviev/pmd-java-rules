@@ -21,14 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.tahaviev.pmd.util;
+package com.github.tahaviev.pmd;
 
-import java.util.function.Supplier;
+import net.sourceforge.pmd.lang.java.ast.ASTFieldDeclaration;
+import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 /**
- * Lazy evaluated value.
- *
- * @param <T> the value type
+ * Only final fields rule.
  */
-public interface Lazy<T> extends Supplier<T> {
+public final class OnlyFinalFieldsRule extends AbstractJavaRule {
+
+    @Override
+    public Object visit(final ASTFieldDeclaration node, final Object data) {
+        if (!node.isFinal()) {
+            this.addViolation(data, node);
+        }
+        return super.visit(node, data);
+    }
 }

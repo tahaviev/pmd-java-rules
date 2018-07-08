@@ -26,6 +26,9 @@ package com.github.tahaviev.pmd;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
+/**
+ * Only public methods rule.
+ */
 public final class OnlyPublicMethodsRule extends AbstractJavaRule {
 
     @Override

@@ -27,53 +27,68 @@ import com.github.tahaviev.pmd.util.RuleTstFixed;
 import net.sourceforge.pmd.testframework.TestDescriptor;
 import org.junit.Test;
 
+/**
+ * {@link OnlyPublicMethodsRule} test.
+ */
 public final class OnlyPublicMethodsRuleTest extends RuleTstFixed {
 
+    /**
+     * Can find package private method.
+     */
     @Test
     public void findsPackagePrivate() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{void m(){}}",
-                        "can not find package private method",
-                        1,
-                        new OnlyPublicMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{void m(){}}",
+                "can not find package private method",
+                1,
+                new OnlyPublicMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find private method.
+     */
     @Test
     public void findsPrivate() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{private void m(){}}",
-                        "can not find private method",
-                        1,
-                        new OnlyPublicMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{private void m(){}}",
+                "can not find private method",
+                1,
+                new OnlyPublicMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find protected method.
+     */
     @Test
     public void findsProtected() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{protected void m(){}}",
-                        "can not find protected method",
-                        1,
-                        new OnlyPublicMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{protected void m(){}}",
+                "can not find protected method",
+                1,
+                new OnlyPublicMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore public method.
+     */
     @Test
     public void ignoresPublic() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public void m(){}}",
-                        "can not ignore public method",
-                        0,
-                        new OnlyPublicMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public void m(){}}",
+                "can not ignore public method",
+                0,
+                new OnlyPublicMethodsRule()
+            )
         );
     }
 }

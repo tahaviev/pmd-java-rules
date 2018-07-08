@@ -21,14 +21,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/***/
 package com.github.tahaviev.pmd.util;
-
-import java.util.function.Supplier;
-
-/**
- * Lazy evaluated value.
- *
- * @param <T> the value type
- */
-public interface Lazy<T> extends Supplier<T> {
-}

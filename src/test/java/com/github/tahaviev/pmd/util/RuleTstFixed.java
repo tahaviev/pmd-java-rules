@@ -28,6 +28,9 @@ import net.sourceforge.pmd.testframework.RuleTst;
 
 import java.util.Objects;
 
+/**
+ * Fixed {@link RuleTst} for isolated rule testing.
+ */
 public abstract class RuleTstFixed extends RuleTst {
 
     @Override
