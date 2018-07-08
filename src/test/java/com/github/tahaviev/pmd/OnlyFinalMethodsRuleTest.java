@@ -27,113 +27,143 @@ import com.github.tahaviev.pmd.util.RuleTstFixed;
 import net.sourceforge.pmd.testframework.TestDescriptor;
 import org.junit.Test;
 
+/**
+ * {@link OnlyFinalMethodsRule} test.
+ */
 public final class OnlyFinalMethodsRuleTest extends RuleTstFixed {
 
+    /**
+     * Can find default method.
+     */
     @Test
     public void findsDefault() {
         this.runTest(
-                new TestDescriptor(
-                        "interface I{default void m(){}}",
-                        "can not find default method",
-                        1,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "interface I{default void m(){}}",
+                "can not find default method",
+                1,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find non final method.
+     */
     @Test
     public void findsNonFinal() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public void m(){}}",
-                        "can not find non final method",
-                        1,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public void m(){}}",
+                "can not find non final method",
+                1,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore anonymous class.
+     */
     @Test
     public void ignoresAnonymousClass() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{final void m(){new AC(){void m(){}};}}",
-                        "can not ignore anonymous class",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{final void m(){new AC(){void m(){}};}}",
+                "can not ignore anonymous class",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore enum method.
+     */
     @Test
     public void ignoresEnum() {
         this.runTest(
-                new TestDescriptor(
-                        "enum E{E1;void m(){}abstract void am(){}}",
-                        "can not ignore enum method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "enum E{E1;void m(){}abstract void am(){}}",
+                "can not ignore enum method",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore final method.
+     */
     @Test
     public void ignoresFinal() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{final void m(){}}",
-                        "can not ignore final method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{final void m(){}}",
+                "can not ignore final method",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore final class.
+     */
     @Test
     public void ignoresFinalClass() {
         this.runTest(
-                new TestDescriptor(
-                        "final class C{public void m(){}}",
-                        "can not ignore final class",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "final class C{public void m(){}}",
+                "can not ignore final class",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore interface method.
+     */
     @Test
     public void ignoresInterface() {
         this.runTest(
-                new TestDescriptor(
-                        "interface I{void m(){}}",
-                        "can not ignore interface method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "interface I{void m(){}}",
+                "can not ignore interface method",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore private method.
+     */
     @Test
     public void ignoresPrivate() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{private void m(){}}",
-                        "can not ignore private method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{private void m(){}}",
+                "can not ignore private method",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore static method.
+     */
     @Test
     public void ignoresStatic() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{static void m(){}}",
-                        "can not ignore static method",
-                        0,
-                        new OnlyFinalMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{static void m(){}}",
+                "can not ignore static method",
+                0,
+                new OnlyFinalMethodsRule()
+            )
         );
     }
 }

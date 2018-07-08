@@ -30,28 +30,31 @@ import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+/**
+ * Only overridden methods rule.
+ */
 public final class OnlyOverriddenMethodsRule extends AbstractJavaRule {
 
     @Override
     public Object visit(final ASTMethodDeclaration node, final Object data) {
         if (Optional
-                .of(node)
-                .filter(it -> !it.isInterfaceMember())
-                .filter(it -> !it.isStatic())
-                .filter(it -> !it.isPrivate())
-                .filter(it -> !it.isAbstract())
-                .filter(
-                        it -> it
-                                .getDeclaredAnnotations()
-                                .stream()
-                                .map(ASTAnnotation::getAnnotationName)
-                                .noneMatch(
-                                        Predicate
-                                                .<String>isEqual("Override")
-                                                .or(name -> name.contains("Test"))
-                                )
-                )
-                .isPresent()) {
+            .of(node)
+            .filter(it -> !it.isInterfaceMember())
+            .filter(it -> !it.isStatic())
+            .filter(it -> !it.isPrivate())
+            .filter(it -> !it.isAbstract())
+            .filter(
+                it -> it
+                    .getDeclaredAnnotations()
+                    .stream()
+                    .map(ASTAnnotation::getAnnotationName)
+                    .noneMatch(
+                        Predicate
+                            .<String>isEqual("Override")
+                            .or(name -> name.contains("Test"))
+                    )
+            )
+            .isPresent()) {
             this.addViolation(data, node);
         }
         return super.visit(node, data);

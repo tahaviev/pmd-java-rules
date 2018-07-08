@@ -26,6 +26,9 @@ package com.github.tahaviev.pmd;
 import net.sourceforge.pmd.lang.java.ast.ASTFieldDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
+/**
+ * Only final fields rule.
+ */
 public final class OnlyFinalFieldsRule extends AbstractJavaRule {
 
     @Override

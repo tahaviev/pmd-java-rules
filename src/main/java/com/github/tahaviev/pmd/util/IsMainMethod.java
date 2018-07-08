@@ -33,27 +33,33 @@ import net.sourceforge.pmd.lang.java.ast.AbstractJavaAccessNode;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Determines whether provided method is main.
+ */
 @RequiredArgsConstructor
 public final class IsMainMethod implements Lazy<Boolean> {
 
+    /**
+     * Method declaration.
+     */
     private final ASTMethodDeclaration declaration;
 
     @Override
     public Boolean get() {
         return Optional
-                .of(this.declaration)
-                .filter(AbstractJavaAccessNode::isStatic)
-                .filter(ASTMethodDeclaration::isPublic)
-                .filter(ASTMethodDeclaration::isVoid)
-                .map(ASTMethodDeclaration::getMethodDeclarator)
-                .filter(it -> it.hasImageEqualTo("main"))
-                .map(it -> it.getFirstChildOfType(ASTFormalParameters.class))
-                .filter(it -> it.getParameterCount() == 1)
-                .map(parameters -> parameters.iterator().next())
-                .filter(ASTFormalParameter::isArray)
-                .map(ASTFormalParameter::getTypeNode)
-                .map(ASTType::getTypeImage)
-                .filter(it -> Objects.equals(it, String.class.getSimpleName()))
-                .isPresent();
+            .of(this.declaration)
+            .filter(AbstractJavaAccessNode::isStatic)
+            .filter(ASTMethodDeclaration::isPublic)
+            .filter(ASTMethodDeclaration::isVoid)
+            .map(ASTMethodDeclaration::getMethodDeclarator)
+            .filter(it -> it.hasImageEqualTo("main"))
+            .map(it -> it.getFirstChildOfType(ASTFormalParameters.class))
+            .filter(it -> it.getParameterCount() == 1)
+            .map(parameters -> parameters.iterator().next())
+            .filter(ASTFormalParameter::isArray)
+            .map(ASTFormalParameter::getTypeNode)
+            .map(ASTType::getTypeImage)
+            .filter(it -> Objects.equals(it, String.class.getSimpleName()))
+            .isPresent();
     }
 }

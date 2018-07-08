@@ -21,44 +21,5 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/***/
 package com.github.tahaviev.pmd;
-
-import com.github.tahaviev.pmd.util.RuleTstFixed;
-import net.sourceforge.pmd.testframework.TestDescriptor;
-import org.junit.Test;
-
-/**
- * {@link OnlyFinalFieldsRule} test.
- */
-public final class OnlyFinalFieldsRuleTest extends RuleTstFixed {
-
-    /**
-     * Can find non final field.
-     */
-    @Test
-    public void findsNonFinal() {
-        this.runTest(
-            new TestDescriptor(
-                "class C{F f;}",
-                "can not find non final field",
-                1,
-                new OnlyFinalFieldsRule()
-            )
-        );
-    }
-
-    /**
-     * Can ignore final field.
-     */
-    @Test
-    public void ignoresFinal() {
-        this.runTest(
-            new TestDescriptor(
-                "class C{final F f;}",
-                "can not ignore final field",
-                0,
-                new OnlyFinalFieldsRule()
-            )
-        );
-    }
-}

@@ -23,26 +23,36 @@
  */
 package com.github.tahaviev.pmd;
 
+import net.sourceforge.pmd.lang.ast.Node;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceBody;
+import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceBodyDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTClassOrInterfaceDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
 import java.util.Optional;
 
+/**
+ * Only final methods rule.
+ */
 public final class OnlyFinalMethodsRule extends AbstractJavaRule {
 
     @Override
     public Object visit(final ASTMethodDeclaration node, final Object data) {
         if (node.isDefault() || Optional
-                .of(node)
-                .filter(it -> !it.isFinal())
-                .filter(it -> !it.isStatic())
-                .filter(it -> !it.isPrivate())
-                .map(it -> it.getNthParent(3))
-                .filter(ASTClassOrInterfaceDeclaration.class::isInstance)
-                .map(ASTClassOrInterfaceDeclaration.class::cast)
-                .filter(it -> !it.isInterface() && !it.isFinal())
-                .isPresent()) {
+            .of(node)
+            .filter(it -> !it.isFinal())
+            .filter(it -> !it.isStatic())
+            .filter(it -> !it.isPrivate())
+            .map(Node::jjtGetParent)
+            .filter(ASTClassOrInterfaceBodyDeclaration.class::isInstance)
+            .map(Node::jjtGetParent)
+            .filter(ASTClassOrInterfaceBody.class::isInstance)
+            .map(Node::jjtGetParent)
+            .filter(ASTClassOrInterfaceDeclaration.class::isInstance)
+            .map(ASTClassOrInterfaceDeclaration.class::cast)
+            .filter(it -> !it.isInterface() && !it.isFinal())
+            .isPresent()) {
             this.addViolation(data, node);
         }
         return super.visit(node, data);

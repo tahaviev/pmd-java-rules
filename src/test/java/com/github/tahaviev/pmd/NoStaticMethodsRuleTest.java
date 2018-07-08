@@ -30,109 +30,136 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collection;
 
+/**
+ * {@link NoStaticMethodsRule} test.
+ */
 public final class NoStaticMethodsRuleTest extends RuleTstFixed {
 
+    /**
+     * Can find static method in interface.
+     */
     @Test
     public void findsInInterface() {
         this.runTest(
-                new TestDescriptor(
-                        "interface I{static R m(){}}",
-                        "can not find static method in interface",
-                        1,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "interface I{static R m(){}}",
+                "can not find static method in interface",
+                1,
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find package private static method.
+     */
     @Test
     public void findsPackagePrivate() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{static R m(){}}",
-                        "can not find package private static method",
-                        1,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{static R m(){}}",
+                "can not find package private static method",
+                1,
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find private static method.
+     */
     @Test
     public void findsPrivate() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{private static R m(){}}",
-                        "can not find private static method",
-                        1,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{private static R m(){}}",
+                "can not find private static method",
+                1,
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find public static method.
+     */
     @Test
     public void findsPublic() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public static R m(){}}",
-                        "can not find public static method",
-                        1,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public static R m(){}}",
+                "can not find public static method",
+                1,
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find static methods similar to main.
+     */
     @Test
     public void findsSimilarToMain() {
         final Collection<String> calls = Arrays.asList(
-                "private static void main(String[] args){}",
-                "public static void main(){}",
-                "public static void Main(String[] args){}",
-                "public static void main(String args){}",
-                "public static R main(String[] args){}",
-                "public static void main(String s, String[] args){}"
+            "private static void main(String[] args){}",
+            "public static void main(){}",
+            "public static void Main(String[] args){}",
+            "public static void main(String args){}",
+            "public static R main(String[] args){}",
+            "public static void main(String s, String[] args){}"
         );
         this.runTest(
-                new TestDescriptor(
-                        String.format("class C{%s}", String.join("", calls)),
-                        "can not find static methods similar to main",
-                        calls.size(),
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                String.format("class C{%s}", String.join("", calls)),
+                "can not find static methods similar to main",
+                calls.size(),
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore main method.
+     */
     @Test
     public void ignoresMain() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public static void main(String[] args){}}",
-                        "can not ignore main method",
-                        0,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public static void main(String[] args){}}",
+                "can not ignore main method",
+                0,
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore non static method.
+     */
     @Test
     public void ignoresNonStaticMethod() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{void m(){}}",
-                        "can not ignore non static method",
-                        0,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{void m(){}}",
+                "can not ignore non static method",
+                0,
+                new NoStaticMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore vararg main method.
+     */
     @Test
     public void ignoresVarargMain() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public static void main(String... args){}}",
-                        "can not ignore vararg main method",
-                        0,
-                        new NoStaticMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public static void main(String... args){}}",
+                "can not ignore vararg main method",
+                0,
+                new NoStaticMethodsRule()
+            )
         );
     }
 }

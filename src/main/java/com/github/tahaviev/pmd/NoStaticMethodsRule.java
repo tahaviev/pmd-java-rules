@@ -27,6 +27,9 @@ import com.github.tahaviev.pmd.util.IsMainMethod;
 import net.sourceforge.pmd.lang.java.ast.ASTMethodDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
+/**
+ * No static methods rule.
+ */
 public final class NoStaticMethodsRule extends AbstractJavaRule {
 
     @Override

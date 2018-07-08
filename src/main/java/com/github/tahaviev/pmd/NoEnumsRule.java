@@ -26,6 +26,9 @@ package com.github.tahaviev.pmd;
 import net.sourceforge.pmd.lang.java.ast.ASTEnumDeclaration;
 import net.sourceforge.pmd.lang.java.rule.AbstractJavaRule;
 
+/**
+ * No enums rule.
+ */
 public final class NoEnumsRule extends AbstractJavaRule {
 
     @Override

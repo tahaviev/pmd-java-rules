@@ -27,101 +27,128 @@ import com.github.tahaviev.pmd.util.RuleTstFixed;
 import net.sourceforge.pmd.testframework.TestDescriptor;
 import org.junit.Test;
 
+/**
+ * {@link OnlyOverriddenMethodsRule} test.
+ */
 public final class OnlyOverriddenMethodsRuleTest extends RuleTstFixed {
 
+    /**
+     * Can find non overridden protected method.
+     */
     @Test
     public void findsNonOverriddenProtected() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{protected void m(){}}",
-                        "can not find non overridden protected method",
-                        1,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{protected void m(){}}",
+                "can not find non overridden protected method",
+                1,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can find non overridden public method.
+     */
     @Test
     public void findsNonOverriddenPublic() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public void m(){}}",
-                        "can not find non overridden public method",
-                        1,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public void m(){}}",
+                "can not find non overridden public method",
+                1,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore abstract method.
+     */
     @Test
     public void ignoresAbstract() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public abstract void m(){}}",
-                        "can not ignore abstract method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public abstract void m(){}}",
+                "can not ignore abstract method",
+                0,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore interface method.
+     */
     @Test
     public void ignoresInterface() {
         this.runTest(
-                new TestDescriptor(
-                        "interface I{void m();}",
-                        "can not ignore interface method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "interface I{void m();}",
+                "can not ignore interface method",
+                0,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore overridden public method.
+     */
     @Test
     public void ignoresOverridden() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{@Override public void m(){}}",
-                        "can not ignore overridden public method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{@Override public void m(){}}",
+                "can not ignore overridden public method",
+                0,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore private method.
+     */
     @Test
     public void ignoresPrivate() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{private void m(){}}",
-                        "can not ignore private method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{private void m(){}}",
+                "can not ignore private method",
+                0,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore static method.
+     */
     @Test
     public void ignoresStatic() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{public static void m(){}}",
-                        "can not ignore static method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{public static void m(){}}",
+                "can not ignore static method",
+                0,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 
+    /**
+     * Can ignore test method.
+     */
     @Test
     public void ignoresTest() {
         this.runTest(
-                new TestDescriptor(
-                        "class C{@Test public void m(){}}",
-                        "can not ignore test method",
-                        0,
-                        new OnlyOverriddenMethodsRule()
-                )
+            new TestDescriptor(
+                "class C{@Test public void m(){}}",
+                "can not ignore test method",
+                0,
+                new OnlyOverriddenMethodsRule()
+            )
         );
     }
 }
